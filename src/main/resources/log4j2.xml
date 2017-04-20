@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="OFF">
+	<Properties>
+        <property name="log_pattern">%level|%date|10|11|1.2.3|%class|%method(%line)|%msg%xException{full}%n</property>
+        <property name="file_name">logs/monkeyjesus/info.log</property>
+        <property name="file_Pattern">logs/monkeyjesus/app-%d{yyyy-MM-dd}-%i.log.gz</property>
+        <property name="every_file_size">10M</property><!-- 日志切割的最小单位 -->
+        <property name="output_log_level">INFO</property><!-- 日志输出级别 -->
+    </Properties>
+	<Appenders>
+		<RollingFile name="rollingFile"
+			fileName="${file_name}" filePattern="${file_Pattern}"
+			ignoreExceptions="false">
+			<PatternLayout pattern="${log_pattern}" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingFile>
+		<Console name="consoleLog" target="SYSTEM_OUT">
+			<PatternLayout pattern="${log_pattern}" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<Root level="${output_log_level}">
+			<AppenderRef ref="consoleLog" />
+			<AppenderRef ref="rollingFile" />
+		</Root>
+		<Logger name="org.mybatis" level="${output_log_level}">
+	        <AppenderRef ref="consoleLog" />
+	    </Logger>
+		<Logger name="org.apache.kafka" level="INFO" /> <!-- avoid recursive logging -->
+	</Loggers>
+</Configuration>
