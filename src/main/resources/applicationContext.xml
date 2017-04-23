@@ -15,7 +15,15 @@
 
     <mvc:annotation-driven></mvc:annotation-driven>
 
-    <util:properties id="propertiesTest" location="classpath*:system.properties"/>
+    <!--<util:properties id="dataSource" location="classpath*:system.properties"/>-->
+
+    <bean id="dataSource" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath*:system.properties</value>
+            </list>
+        </property>
+    </bean>
 
     <!-- 自动扫描且只扫描@Controller-->
     <context:component-scan base-package="com.monkeyjesus.properties" use-default-filters="false">
@@ -24,5 +32,6 @@
 
     <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter"/>-->
 
+    <import resource="classpath*:dataSource/aaDataSource.xml"/>
 
 </beans>

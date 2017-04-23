@@ -1,5 +1,6 @@
 package com.monkeyjesus.properties.test;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,11 +12,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class Test {
 
-    public static String testKey;
+//    @Value("#{dataSource.key1}")
+    private String testKey;
 
     @RequestMapping(value = "aa")
     public String returnString(){
-        return "success";
+        return testKey;
     }
 
 
@@ -24,9 +26,15 @@ public class Test {
         return "success";
     }
 
-    public static void main(String[] args){
-        System.out.println(testKey);
-        System.out.println(testKey);
-        System.out.println(testKey);
+
+    @RequestMapping(value = "cc")
+    public @ResponseBody String cc(){
+        return testKey;
     }
+
+//    public static void main(String[] args){
+//        System.out.println(testKey);
+//        System.out.println(testKey);
+//        System.out.println(testKey);
+//    }
 }
